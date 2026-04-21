@@ -1,4 +1,4 @@
-# 🍞 SALT
+# 🍞 SALT - Slice And Loaf Telemetry
 
 > A modular home automation and environmental sensing platform, developed in collaboration with **EE4737** and the open-source [BREAD] project.
 
