@@ -1,0 +1,5 @@
+../Core/Src/power.c:19:6:rtc_outage_flag	2
+../Core/Src/power.c:41:16:rtc_outage_duration	2
+../Core/Src/power.c:59:10:power_draw	1
+../Core/Src/power.c:85:7:cs_low	1
+../Core/Src/power.c:90:7:cs_high	1

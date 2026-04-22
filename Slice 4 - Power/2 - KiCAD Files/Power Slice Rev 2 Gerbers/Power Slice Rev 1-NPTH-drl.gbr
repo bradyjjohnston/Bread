@@ -1,0 +1,29 @@
+%TF.GenerationSoftware,KiCad,Pcbnew,9.0.6*%
+%TF.CreationDate,2026-02-26T17:30:14-05:00*%
+%TF.ProjectId,Power Slice Rev 1,506f7765-7220-4536-9c69-636520526576,rev?*%
+%TF.SameCoordinates,Original*%
+%TF.FileFunction,NonPlated,1,4,NPTH,Rout*%
+%TF.FilePolarity,Positive*%
+%FSLAX46Y46*%
+G04 Gerber Fmt 4.6, Leading zero omitted, Abs format (unit mm)*
+G04 Created by KiCad (PCBNEW 9.0.6) date 2026-02-26 17:30:14*
+%MOMM*%
+%LPD*%
+G01*
+G04 APERTURE LIST*
+G04 aperture for slot hole*
+%TA.AperFunction,ComponentDrill*%
+%ADD10C,1.270000*%
+%TD*%
+G04 APERTURE END LIST*
+D10*
+%TO.C,U8*%
+X103780000Y-69890000D02*
+X103780000Y-64160000D01*
+%TO.C,U4*%
+X103980000Y-79715000D02*
+X103980000Y-73985000D01*
+%TO.C,U10*%
+X104030000Y-89145000D02*
+X104030000Y-83415000D01*
+M02*

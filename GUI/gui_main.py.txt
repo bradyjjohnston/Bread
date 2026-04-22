@@ -1,0 +1,113 @@
+import tkinter as tk
+import datetime
+import threading
+import time
+
+from tkinter import messagebox
+
+root = tk.Tk()
+root.title("Winter Automation GUI")
+
+# Labels
+weather_label = tk.Label(root, text="Weather: ---")
+weather_label.pack()
+
+prediction_label = tk.Label(root, text="Prediction: ---")
+prediction_label.pack()
+
+# Log box
+log_box = tk.Text(root, height=10, width=50)
+log_box.pack()
+
+def update_weather():
+    weather_label.config(text="Weather: 28°F, Light Snow")
+    log("Weather updated.")
+
+def update_prediction():
+    prediction_label.config(text="Prediction: Salt spreading in 45 minutes.")
+    log("Prediction updated.")
+
+def spread_salt():
+    log("Manual command: Spread Salt")
+
+def boot_dryer():
+    log("Manual command: Boot Dryer")
+
+def stop_all():
+    log("Manual command: STOP ALL")
+
+def log(msg):
+    timestamp = datetime.datetime.now().strftime("%H:%M:%S")
+    log_box.insert(tk.END, f"[{timestamp}] {msg}\n")
+    log_box.see(tk.END)
+
+def fake_mcu_listener():
+    while True:
+        time.sleep(5)  # every 5 seconds
+        log("MCU: Weather sensor heartbeat OK")
+        log("MCU: Actuator idle")
+
+# Buttons
+btn_weather = tk.Button(root, text="Test Weather Update", command=update_weather)
+btn_weather.pack()
+
+btn_predict = tk.Button(root, text="Test Prediction Update", command=update_prediction)
+btn_predict.pack()
+
+btn_salt = tk.Button(root, text="Spread Salt", command=spread_salt)
+btn_salt.pack()
+
+btn_dryer = tk.Button(root, text="Boot Dryer", command=boot_dryer)
+btn_dryer.pack()
+
+btn_stop = tk.Button(root, text="STOP ALL", command=stop_all)
+btn_stop.pack()
+
+# -----------------------------
+# Text Input + Send Button
+# -----------------------------
+input_frame = tk.Frame(root)
+input_frame.pack(pady=10)
+
+command_entry = tk.Entry(input_frame, width=40)
+command_entry.pack(side=tk.LEFT, padx=5)
+
+def send_command():
+    cmd = command_entry.get().strip()
+    if cmd:
+        log(f"User command sent: {cmd}")
+        command_entry.delete(0, tk.END)
+
+send_button = tk.Button(input_frame, text="Send", command=send_command)
+send_button.pack(side=tk.LEFT)
+
+# Camera feed placeholder
+camera_frame = tk.Frame(root, width=320, height=240, bg="black")
+camera_frame.pack(pady=10)
+
+camera_label = tk.Label(camera_frame, text="Camera Feed Placeholder", fg="white", bg="black")
+camera_label.place(relx=0.5, rely=0.5, anchor="center")
+
+threading.Thread(target=fake_mcu_listener, daemon=True).start()
+
+# -----------------------------
+# Menu Bar
+# -----------------------------
+menubar = tk.Menu(root)
+
+# File Menu
+file_menu = tk.Menu(menubar, tearoff=0)
+file_menu.add_command(label="Exit", command=root.quit)
+menubar.add_cascade(label="File", menu=file_menu)
+
+# Help Menu
+help_menu = tk.Menu(menubar, tearoff=0)
+help_menu.add_command(label="About", command=lambda: messagebox.showinfo(
+    "About",
+    "Winter Automation GUI\nVersion 0.1\nCreated by GUI Subteam"
+))
+menubar.add_cascade(label="Help", menu=help_menu)
+
+root.config(menu=menubar)
+
+root.mainloop()

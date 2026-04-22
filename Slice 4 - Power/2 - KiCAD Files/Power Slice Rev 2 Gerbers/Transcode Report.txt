@@ -1,0 +1,292 @@
+
+
+   ---- Transcoding 'C:\Users\Emily\OneDrive\Desktop\College\Embedded Systems\Power Slice Rev 1\Power Slice Rev 2 Gerbers\Power Slice Rev 1-F_Paste.gbr' ----   Thu Feb 26 17:30:41 2026
+
+D10   --> D100
+D11   --> D101
+D12   --> D102
+D13   --> D103
+D14   --> D104
+D15   --> D105
+D16   --> D106
+D17   --> D107
+D18   --> D108
+D19   --> D109
+D20   --> D110
+D21   --> D111
+D22   --> D112
+D23   --> D113
+D24   --> D114
+D25   --> D115
+D26   --> D116
+D27   --> D117
+D28   --> D118
+D29   --> D119
+D30   --> D120
+D31   --> D121
+D32   --> D122
+D33   --> D123
+D34   --> D124
+D35   --> D125
+D36   --> D126
+D37   --> D127
+-----------------------------------------------------------------
+
+
+   ---- Transcoding 'C:\Users\Emily\OneDrive\Desktop\College\Embedded Systems\Power Slice Rev 1\Power Slice Rev 2 Gerbers\Power Slice Rev 1-F_Silkscreen.gbr' ----   Thu Feb 26 17:30:41 2026
+
+D11   --> D128
+D12   --> D129
+D13   --> D130
+D14   --> D131
+D16   --> D132
+D17   --> D133
+D18   --> D134
+-----------------------------------------------------------------
+
+
+   ---- Transcoding 'C:\Users\Emily\OneDrive\Desktop\College\Embedded Systems\Power Slice Rev 1\Power Slice Rev 2 Gerbers\Power Slice Rev 1-In1_Cu.gbr' ----   Thu Feb 26 17:30:41 2026
+
+D10   --> D135
+D11   --> D136
+D12   --> D137
+D13   --> D138
+D14   --> D139
+D15   --> D140
+D16   --> D141
+D17   --> D142
+D18   --> D143
+D19   --> D144
+D20   --> D145
+D21   --> D146
+D22   --> D147
+D23   --> D148
+D24   --> D149
+D25   --> D150
+D26   --> D151
+D27   --> D152
+D28   --> D153
+D29   --> D154
+D30   --> D155
+D31   --> D156
+D32   --> D157
+-----------------------------------------------------------------
+
+
+   ---- Transcoding 'C:\Users\Emily\OneDrive\Desktop\College\Embedded Systems\Power Slice Rev 1\Power Slice Rev 2 Gerbers\Power Slice Rev 1-In2_Cu.gbr' ----   Thu Feb 26 17:30:41 2026
+
+D10   --> D158
+D11   --> D159
+D12   --> D160
+D13   --> D161
+D14   --> D162
+D15   --> D163
+D16   --> D164
+D17   --> D165
+D18   --> D166
+D19   --> D167
+D20   --> D168
+D21   --> D169
+D22   --> D170
+D23   --> D171
+D24   --> D172
+D25   --> D173
+D26   --> D174
+D27   --> D175
+D28   --> D176
+D29   --> D177
+D30   --> D178
+D31   --> D179
+D32   --> D180
+D33   --> D181
+D34   --> D182
+D35   --> D183
+-----------------------------------------------------------------
+
+
+   ---- Transcoding 'C:\Users\Emily\OneDrive\Desktop\College\Embedded Systems\Power Slice Rev 1\Power Slice Rev 2 Gerbers\Power Slice Rev 1-B_Cu.gbr' ----   Thu Feb 26 17:30:41 2026
+
+D10   --> D184
+D11   --> D185
+D12   --> D186
+D13   --> D187
+D14   --> D188
+D15   --> D189
+D16   --> D190
+D17   --> D191
+D18   --> D192
+D19   --> D193
+D20   --> D194
+D21   --> D195
+D22   --> D196
+D23   --> D197
+D24   --> D198
+D25   --> D199
+D26   --> D200
+D27   --> D201
+D28   --> D202
+D29   --> D203
+D30   --> D204
+D31   --> D205
+D32   --> D206
+D33   --> D207
+D34   --> D208
+D35   --> D209
+D36   --> D210
+D37   --> D211
+D38   --> D212
+D39   --> D213
+D40   --> D214
+-----------------------------------------------------------------
+
+
+   ---- Transcoding 'C:\Users\Emily\OneDrive\Desktop\College\Embedded Systems\Power Slice Rev 1\Power Slice Rev 2 Gerbers\Power Slice Rev 1-B_Mask.gbr' ----   Thu Feb 26 17:30:41 2026
+
+D12   --> D215
+D13   --> D216
+D14   --> D217
+D15   --> D218
+D16   --> D219
+D17   --> D220
+D18   --> D221
+D19   --> D222
+D20   --> D223
+D21   --> D224
+D22   --> D225
+D23   --> D226
+D24   --> D227
+D25   --> D228
+D26   --> D229
+D27   --> D230
+D28   --> D231
+D29   --> D232
+D30   --> D233
+D31   --> D234
+-----------------------------------------------------------------
+
+
+   ---- Transcoding 'C:\Users\Emily\OneDrive\Desktop\College\Embedded Systems\Power Slice Rev 1\Power Slice Rev 2 Gerbers\Power Slice Rev 1-B_Paste.gbr' ----   Thu Feb 26 17:30:41 2026
+
+D10   --> D235
+D11   --> D236
+-----------------------------------------------------------------
+
+
+   ---- Transcoding 'C:\Users\Emily\OneDrive\Desktop\College\Embedded Systems\Power Slice Rev 1\Power Slice Rev 2 Gerbers\Power Slice Rev 1-B_Silkscreen.gbr' ----   Thu Feb 26 17:30:41 2026
+
+D10   --> D237
+D11   --> D238
+D12   --> D239
+D13   --> D240
+D14   --> D241
+-----------------------------------------------------------------
+
+
+   ---- Transcoding 'C:\Users\Emily\OneDrive\Desktop\College\Embedded Systems\Power Slice Rev 1\Power Slice Rev 2 Gerbers\Power Slice Rev 1-Edge_Cuts.gbr' ----   Thu Feb 26 17:30:41 2026
+
+D10   --> D242
+-----------------------------------------------------------------
+
+
+   ---- Transcoding 'C:\Users\Emily\OneDrive\Desktop\College\Embedded Systems\Power Slice Rev 1\Power Slice Rev 2 Gerbers\Power Slice Rev 1-F_Cu.gbr' ----   Thu Feb 26 17:30:41 2026
+
+D10   --> D243
+D11   --> D244
+D12   --> D245
+D13   --> D246
+D14   --> D247
+D15   --> D248
+D16   --> D249
+D17   --> D250
+D18   --> D251
+D19   --> D252
+D20   --> D253
+D21   --> D254
+D22   --> D255
+D23   --> D256
+D24   --> D257
+D25   --> D258
+D26   --> D259
+D27   --> D260
+D28   --> D261
+D29   --> D262
+D30   --> D263
+D31   --> D264
+D32   --> D265
+D33   --> D266
+D34   --> D267
+D35   --> D268
+D36   --> D269
+D37   --> D270
+D38   --> D271
+D39   --> D272
+D40   --> D273
+D41   --> D274
+D42   --> D275
+D43   --> D276
+D44   --> D277
+D45   --> D278
+D46   --> D279
+D47   --> D280
+D48   --> D281
+D49   --> D282
+D50   --> D283
+D51   --> D284
+D52   --> D285
+D53   --> D286
+D54   --> D287
+D55   --> D288
+D56   --> D289
+D57   --> D290
+D58   --> D291
+-----------------------------------------------------------------
+
+
+   ---- Transcoding 'C:\Users\Emily\OneDrive\Desktop\College\Embedded Systems\Power Slice Rev 1\Power Slice Rev 2 Gerbers\Power Slice Rev 1-PTH-drl_map.gbr' ----   Thu Feb 26 17:30:47 2026
+
+D10   --> D292
+D11   --> D293
+D12   --> D294
+D13   --> D295
+D14   --> D296
+-----------------------------------------------------------------
+
+
+   ---- Transcoding 'C:\Users\Emily\OneDrive\Desktop\College\Embedded Systems\Power Slice Rev 1\Power Slice Rev 2 Gerbers\Power Slice Rev 1-PTH-drl.gbr' ----   Thu Feb 26 17:30:54 2026
+
+D10   --> D297
+D11   --> D298
+D12   --> D299
+D13   --> D300
+D14   --> D301
+D15   --> D302
+D16   --> D303
+D17   --> D304
+D18   --> D305
+D19   --> D306
+-----------------------------------------------------------------
+
+
+   ---- Transcoding 'C:\Users\Emily\OneDrive\Desktop\College\Embedded Systems\Power Slice Rev 1\Power Slice Rev 2 Gerbers\Power Slice Rev 1-PTH-drl_map.gbr' ----   Thu Feb 26 17:30:54 2026
+
+D10   --> D307
+D11   --> D308
+D12   --> D309
+D13   --> D310
+D14   --> D311
+-----------------------------------------------------------------
+
+
+   ---- Transcoding 'C:\Users\Emily\OneDrive\Desktop\College\Embedded Systems\Power Slice Rev 1\Power Slice Rev 2 Gerbers\Power Slice Rev 1-NPTH-drl.gbr' ----   Thu Feb 26 17:30:55 2026
+
+D10   --> D312
+-----------------------------------------------------------------
+
+
+   ---- Transcoding 'C:\Users\Emily\OneDrive\Desktop\College\Embedded Systems\Power Slice Rev 1\Power Slice Rev 2 Gerbers\Power Slice Rev 1-NPTH-drl_map.gbr' ----   Thu Feb 26 17:30:55 2026
+
+D10   --> D313
+D11   --> D314
+D12   --> D315
+D13   --> D316
+-----------------------------------------------------------------

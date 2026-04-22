@@ -1,0 +1,373 @@
+import tkinter as tk
+import datetime
+import threading
+import time
+
+import os
+
+import serial
+import serial.tools.list_ports
+import cv2
+from PIL import Image, ImageTk
+
+ser = None
+def get_serial_ports():
+    ports = serial.tools.list_ports.comports()
+    return [p.device for p in ports]
+
+
+LOG_DIR = "system_logs"
+os.makedirs(LOG_DIR, exist_ok=True)
+
+from tkinter import ttk
+from tkinter import messagebox
+from filterpy.kalman import KalmanFilter
+import numpy as np
+
+running = True
+
+root = tk.Tk()
+root.title("Winter Automation GUI")
+
+notebook = ttk.Notebook(root)
+notebook.pack(expand=True, fill="both")
+
+main_frame = tk.Frame(notebook)
+logs_frame = tk.Frame(notebook)
+
+notebook.add(main_frame, text="Main")
+notebook.add(logs_frame, text="Logs")
+
+# Logs tab UI
+log_listbox = tk.Listbox(logs_frame, width=40)
+log_listbox.pack(side=tk.LEFT, fill=tk.Y, padx=5, pady=5)
+
+log_text = tk.Text(logs_frame, width=60)
+log_text.pack(side=tk.RIGHT, fill=tk.BOTH, expand=True, padx=5, pady=5)
+
+# Labels
+weather_label = tk.Label(main_frame, text="Weather: ---")
+weather_label.pack()
+
+# Log box
+log_box = tk.Text(main_frame, height=10, width=50)
+log_box.pack()
+
+def update_weather():
+    weather_label.config(text="Weather: 28°F, Light Snow")
+    log("Weather updated.")
+
+def update_prediction():
+    prediction_label.config(text="Prediction: Salt spreading in 45 minutes.")
+    log("Prediction updated.")
+
+prediction_label = tk.Label(main_frame, text="Prediction: ---")
+prediction_label.pack()
+
+def spread_salt():
+    log("Manual command: Spread Salt")
+
+def boot_dryer():
+    log("Manual command: Boot Dryer")
+
+def stop_all():
+    log("Manual command: STOP ALL")
+
+def log(msg):
+    timestamp = datetime.datetime.now().strftime("%H:%M:%S")
+    full_msg = f"[{timestamp}] {msg}"
+
+    # GUI log
+    def append():
+        log_box.insert(tk.END, full_msg + "\n")
+        log_box.see(tk.END)
+    root.after(0, append)
+
+    # File log
+    with open(get_log_filename(), "a") as f:
+        f.write(full_msg + "\n")
+
+def fake_mcu_listener():
+    while True:
+        time.sleep(5)  # every 5 seconds
+        noisy_temp = 30 + np.random.rand() * 5
+        update_prediction_with_kalman(noisy_temp)
+#        log("MCU: Weather sensor heartbeat OK")
+#        log("MCU: Actuator idle")
+
+# Serial Port Dropdown
+port_list = get_serial_ports()
+
+port_var = tk.StringVar()
+
+if port_list:
+    default_port = port_list[0]
+else:
+    default_port = "No Ports"
+
+port_var.set(default_port)
+
+# IMPORTANT: Python 3.14 requires default_port BEFORE *port_list
+port_menu = tk.OptionMenu(main_frame, port_var, default_port, *port_list)
+port_menu.pack(pady=5)
+
+
+# Connect Button
+def connect_serial():
+    global ser
+    try:
+        ser = serial.Serial(port_var.get(), 115200, timeout=1)
+        log(f"Connected to {port_var.get()}")
+    except Exception as e:
+        log(f"Serial connection error: {e}")
+
+connect_button = tk.Button(main_frame, text="Connect to MCU", command=connect_serial)
+connect_button.pack(pady=5)
+
+def send_to_mcu(cmd):
+    if ser and ser.is_open:
+        ser.write((cmd + "\n").encode())
+        log(f"Sent to MCU: {cmd}")
+    else:
+        log("MCU not connected.")
+
+# Buttons
+btn_weather = tk.Button(main_frame, text="Test Weather Update", command=update_weather)
+btn_weather.pack()
+
+btn_predict = tk.Button(main_frame, text="Test Prediction Update", command=update_prediction)
+btn_predict.pack()
+
+btn_salt = tk.Button(main_frame, text="Spread Salt", command=spread_salt)
+btn_salt.pack()
+
+btn_dryer = tk.Button(main_frame, text="Boot Dryer", command=boot_dryer)
+btn_dryer.pack()
+
+btn_stop = tk.Button(main_frame, text="STOP ALL", command=stop_all)
+btn_stop.pack()
+
+# System Logs
+def get_log_filename():
+    date = datetime.datetime.now().strftime("%Y-%m-%d")
+    return os.path.join(LOG_DIR, f"{date}.log")
+
+
+
+# -----------------------------
+# Text Input + Send Button
+# -----------------------------
+input_frame = tk.Frame(main_frame)
+input_frame.pack(pady=10)
+
+command_entry = tk.Entry(input_frame, width=40)
+command_entry.pack(side=tk.LEFT, padx=5)
+
+def send_command():
+    cmd = command_entry.get().strip()
+    if cmd:
+        log(f"User command sent: {cmd}")
+        command_entry.delete(0, tk.END)
+
+send_button = tk.Button(input_frame, text="Send", command=send_command)
+send_button.pack(side=tk.LEFT)
+
+# Camera feed placeholder
+camera_frame = tk.Frame(main_frame, width=320, height=240, bg="white")
+camera_frame.pack(pady=10)
+
+camera_label = tk.Label(camera_frame, text="Camera Feed Placeholder", fg="black", bg="white")
+camera_label.place(relx=0.5, rely=0.5, anchor="center")
+
+threading.Thread(target=fake_mcu_listener, daemon=True).start()
+
+def show_command_help():
+    help_window = tk.Toplevel(root)
+    help_window.title("Available Commands")
+    help_window.geometry("350x350")
+
+    text = (
+        "Commands You Can Send:\n\n"
+        "1. Turn sprayer ON:\n"
+        "   SPRAY:ON\n\n"
+        "2. Turn sprayer OFF:\n"
+        "   SPRAY:OFF\n\n"
+        "3. Request full status update:\n"
+        "   REQUEST:STATUS\n\n"
+        "4. Request temperature only:\n"
+        "   REQUEST:TEMP\n\n"
+        "5. Request power status only:\n"
+        "   REQUEST:POWER\n\n"
+        "6. Request alert status only:\n"
+        "   REQUEST:ALERT\n\n"
+        "7. Reset the system:\n"
+        "   RESET\n"
+    )
+
+    label = tk.Label(help_window, text=text, justify="left", anchor="nw")
+    label.pack(padx=10, pady=10, fill="both", expand=True)
+
+# -----------------------------
+# Menu Bar
+# -----------------------------
+menubar = tk.Menu(root)
+
+# File Menu
+file_menu = tk.Menu(menubar, tearoff=0)
+file_menu.add_command(label="Exit", command=root.quit)
+menubar.add_cascade(label="File", menu=file_menu)
+
+# Help Menu
+help_menu = tk.Menu(menubar, tearoff=0)
+help_menu.add_command(label = "Command List", command = show_command_help)
+help_menu.add_command(label="About", command=lambda: messagebox.showinfo(
+    "About",
+    "Winter Automation GUI\nVersion 0.1\nCreated by GUI Subteam"
+))
+menubar.add_cascade(label="Help", menu=help_menu)
+
+
+
+root.config(menu=menubar)
+
+power_label = tk.Label(main_frame, text="Power: --")
+power_label.pack()
+
+alert_label = tk.Label(main_frame, text="Alert: --")
+alert_label.pack()
+
+
+#------------------------------
+# Aesthetics
+#------------------------------
+root.configure(bg="#000000")
+main_frame.configure(bg="#000000")
+logs_frame.configure(bg="#000000")
+
+weather_label.config(bg="#000000", fg="#FFD700")
+prediction_label.config(bg="#000000", fg="#FFD700")
+power_label.config(bg="#000000", fg="#FFD700")
+alert_label.config(bg="#000000", fg="#FFD700")
+
+log_box.config(bg="#111111", fg="#FFD700", insertbackground="#FFD700")
+log_text.config(bg="#111111", fg="#FFD700", insertbackground="#FFD700")
+
+style = ttk.Style()
+style.theme_use("default")
+
+style.configure("TNotebook", background="#000000", borderwidth=0)
+style.configure("TNotebook.Tab", background="#222222", foreground="#FFD700")
+style.map("TNotebook.Tab", background=[("selected", "#000000")])
+
+
+
+# -----------------------------
+# Simple 1D Kalman Filter for temperature smoothing
+# -----------------------------
+kf = KalmanFilter(dim_x=1, dim_z=1)
+
+kf.F = np.array([[1]])   # state transition
+kf.H = np.array([[1]])   # measurement function
+
+kf.x = np.array([[0]])   # initial state estimate
+kf.P = np.array([[1000]])  # initial uncertainty
+kf.Q = np.array([[0.1]])   # process noise
+kf.R = np.array([[2]])     # measurement noise
+
+def preload_kalman_with_history():
+    # Simulate last year's daily temperatures (simple sine wave + noise)
+    days = np.linspace(0, 365, 365)
+    temps = 30 + 15 * np.sin(2 * np.pi * days / 365) + np.random.randn(365) * 2
+
+    for t in temps:
+        kf.predict()
+        kf.update(t)
+
+preload_kalman_with_history()
+
+def update_prediction_with_kalman(measured_temp):
+    global kf
+
+    # Run the filter
+    kf.predict()
+    kf.update(measured_temp)
+
+    filtered = float(kf.x.item())
+
+    # Update GUI safely
+    def update_label():
+        prediction_label.config(text=f"Predicted Temp: {filtered:.1f}°F")
+        log(f"Kalman: {measured_temp:.1f}°F -> {filtered:.1f}°F")
+
+    root.after(0, update_label)
+
+def refresh_log_list():
+    log_listbox.delete(0, tk.END)
+    for filename in os.listdir(LOG_DIR):
+        if filename.endswith(".log"):
+            log_listbox.insert(tk.END, filename)
+
+def load_selected_log(event=None):
+    selection = log_listbox.curselection()
+    if not selection:
+        return
+    filename = log_listbox.get(selection[0])
+    path = os.path.join(LOG_DIR, filename)
+
+    with open(path, "r") as f:
+        contents = f.read()
+
+    log_text.delete("1.0", tk.END)
+    log_text.insert(tk.END, contents)
+
+def listen_to_mcu():
+    while True:
+        try:
+            if ser.in_waiting > 0:
+                line = ser.readline().decode().strip()
+                handle_mcu_message(line)
+        except:
+            break
+
+def start_listener():
+    listener_thread = threading.Thread(target=listen_to_mcu, daemon=True)
+    listener_thread.start()
+start_listener()
+
+def handle_mcu_message(msg):
+    print("MCU:", msg)  # optional debug print
+
+    # POWER messages
+    if msg.startswith("POWER:"):
+        status = msg.split(":")[1]
+        power_label.config(text=f"Power: {status}")
+
+    # ALERT messages
+    elif msg.startswith("ALERT:"):
+        status = msg.split(":")[1]
+        alert_label.config(text=f"Alert: {status}")
+
+    # TEMPERATURE messages (if needed)
+    elif msg.startswith("TEMP:"):
+        value = msg.split(":")[1]
+        weather_label.config(text=f"Temperature: {value}")
+
+    # SPRAY messages (optional)
+    elif msg.startswith("SPRAY:"):
+        state = msg.split(":")[1]
+        # you can update a spray label if you add one
+
+log_listbox.bind("<<ListboxSelect>>", load_selected_log)
+refresh_button = tk.Button(logs_frame, text="Refresh Logs", command=refresh_log_list)
+refresh_button.pack(pady=5)
+
+refresh_log_list()
+
+def on_close():
+    global running
+    running = False
+    root.destroy()
+
+root.protocol("WM_DELETE_WINDOW", on_close)
+
+root.mainloop()
